@@ -1,7 +1,8 @@
-from llm import generate_x_keywords, generate_top_10
+from llm import generate_x_keywords, generate_top_10, run_file_command
 from x import search_x_tweets
 from clean import clean_output
 import time
+
 repo_url = 'https://github.com/kenneth-ge/xAI-Hackathon-Test-Repo'
 keywords, repo_info = generate_x_keywords(repo_url)
 print(keywords)
@@ -12,3 +13,4 @@ for keyword in keywords:
 output = generate_top_10(repo_info, relavent_tweets)
 output = clean_output(output)
 print(output)
+run_file_command(output)
