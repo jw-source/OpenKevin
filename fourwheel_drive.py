@@ -10,7 +10,7 @@ import os
 from selenium.webdriver import ActionChains
 
 options = webdriver.FirefoxOptions()
-options.set_preference('profile', "C:\\Users\\Kenny\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\50xcwu7x.school-1632326509667")
+#options.set_preference('profile', "C:\\Users\\Kenny\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\50xcwu7x.school-1632326509667")
 
 driver = webdriver.Firefox(options=options)
 driver.get("https://replit.com/join/hjfnvykdup-kennethkouge")
