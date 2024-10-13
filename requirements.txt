@@ -1,7 +1,7 @@
 openai
-scrape_github
 python-dotenv
 requests
 beautifulsoup4
 tweepy
 PyPDF2
+Selenium
