@@ -18,7 +18,7 @@ driver.get("https://replit.com/join/hjfnvykdup-kennethkouge")
 elements = WebDriverWait(driver, 20).until(EC.visibility_of_all_elements_located((By.ID, "username-:r0:")))
 
 driver.find_element(By.ID, "username-:r0:").click()
-driver.find_element(By.ID, "username-:r0:").send_keys("kennethkouge@gmail.com")
+driver.find_element(By.ID, "username-:r0:").send_keys(os.environ['REPLIT_EML'])
 driver.find_element(By.ID, "password-:r6:").click()
 driver.find_element(By.ID, "password-:r6:").send_keys(os.environ['REPLIT_PWD'])
 driver.find_element(By.XPATH, "//button[span[text()='Log In']]").click()
