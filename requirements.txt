@@ -1,5 +1,4 @@
 openai
-scrape_github
 python-dotenv
 requests
 beautifulsoup4
