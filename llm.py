@@ -4,6 +4,7 @@ import json
 import re
 from dotenv import load_dotenv
 import os
+from fourwheel_drive import do_full_process
 load_dotenv()
 
 client = OpenAI(
@@ -58,3 +59,50 @@ def generate_top_10(repo_info, context):
     tasks = re.split(r'\n(?=\d+\.)', output.strip())
     print("Done generating top 10 tasks...")
     return tasks
+
+functions = [
+    {
+        "name": "do_full_process",
+        "description": "Update codebase given a file name and a task prompt",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "filename": {
+                    "type": "string",
+                    "description": "The name of the file where the AI-generated content will be pasted",
+                    "example_value": "main.c",
+                },
+                "prompt": {
+                    "type": "string",
+                    "description": "The prompt text to send to the AI box for generating content",
+                    "example_value": "Implement a Custom `print` Function - As per Issue #4, there is a need for a custom print function which could be more secure or offer additional formatting options not available with standard `printf`",
+                }
+            },
+            "required": ["filename", "prompt"]
+        }
+    }
+]
+
+tools = [{"type": "function", "function": f} for f in functions]
+
+def run_file_command(tasks):
+    for task in tasks:
+        response = client.chat.completions.create(
+            model="grok-preview",
+            seed=1,
+            messages=[
+            {
+                "role": "system",
+                "content": "You are an expert at updating code by extracting the file name and task prompt from a string. Run the function `do_full_process` with the extracted file name and task prompt."
+            },
+            {   "role": "user", 
+                "content": f"{task}"
+            },
+        ],
+            tools=tools
+        )
+        tool_call = response.choices[0].message.tool_calls[0]
+        arguments = json.loads(tool_call['function']['arguments'])
+        filename = arguments.get('filename')
+        prompt = arguments.get('prompt')
+        do_full_process(filename, prompt)
