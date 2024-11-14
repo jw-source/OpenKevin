@@ -1,3 +1,10 @@
+## About:
+Created an autonomous AI codegen tool that takes in a GitHub url, collects repo issues, pull requests, and more.
+
+Uses this context to query X for recent arXiv papers to take insight from. 
+
+Automatically updates codebase using updated knowledge from these research papers and X. Generates and executes new code within a Replit shell.
+
 ## Usage: 
 ```bash
 # Clone the repository
